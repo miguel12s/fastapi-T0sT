@@ -16,19 +16,18 @@ def uploadFile(file:UploadFile):
         if not file:
             raise HTTPException(status_code=400, detail="No se encontró el archivo")
         if not  allowed_file(file.filename):
-            raise HTTPException(status_code=400, detail="el tipo de archivo no es permitido")
+            # raise HTTPException(status_code=400, detail="el tipo de archivo no es permitido")
+            return JSONResponse(content={"error":"el tipo de archivo no es permitido"},status_code=400)
         filename = secure_filename(file.filename)
         file_path = os.path.join(config['UPLOAD_FOLDER'], filename)
         with open(file_path, "wb") as buffer:
           buffer.write(file.file.read())
 
     # Obtener la ruta relativa al directorio actual del script
-        relative_path = os.path.relpath(file_path, os.path.dirname(__file__))
-        image_path = str(relative_path)
-
+        
         return JSONResponse(content={
             "success": "Archivo enviado con éxito",
-            "path": image_path
+            "path": filename
         }, status_code=200)
         
 @upload.get('/display/{filename}')
