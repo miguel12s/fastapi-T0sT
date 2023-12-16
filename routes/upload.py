@@ -7,7 +7,7 @@ from pathlib import Path
 upload=APIRouter(prefix='/upload')
 UPLOAD_FOLDER='static/uploads/'
 config={"UPLOAD_FOLDER":UPLOAD_FOLDER}
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif','mp4'])
 
 
 @upload.post('/upload-file')
